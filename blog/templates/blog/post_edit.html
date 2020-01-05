@@ -1,0 +1,149 @@
+{% extends './base.html' %} {% block content %}
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-12">
+      <form action="" method="post" id="post__form">
+        <input type="hidden" id="post__title__inp" name="{{ form.title.html_name }}" value="{{ form.title.value }}">
+        <input type="hidden" id="post__content__inp" name="{{ form.text.html_name }}" value="{{ form.text.value }}">
+        <input type="hidden" id="post__tags__inp" name="{{ form.tags.html_name }}" value="{{ form.tags.value }}">
+        {% csrf_token %}
+        {% if form.title.errors %}
+          {% for error in form.title.errors %}
+            <span class="invalid-text">{{ error }}</span>
+          {% endfor %}
+          {% if form.title.value %}
+            <div
+              contenteditable="true"
+              data-placeholder="Your Blog Post Heading goes here."
+              class="heading display-3 mb-5 invalid"
+              id="post__title"
+            >
+              {{ form.title.value }}
+            </div>
+          {% else %}
+            <div
+              contenteditable="true"
+              data-placeholder="Your Blog Post Heading goes here."
+              class="heading display-3 mb-5 invalid"
+              id="post__title"
+            ></div>
+          {% endif %}
+        {% else %}
+          {% if form.title.value %}
+            <div
+              contenteditable="true"
+              data-placeholder="Your Blog Post Heading goes here."
+              class="heading display-3 mb-5"
+              id="post__title"
+            >
+              {{ form.title.value }}
+            </div>
+          {% else %}
+            <div
+              contenteditable="true"
+              data-placeholder="Your Blog Post Heading goes here."
+              class="heading display-3 mb-5"
+              id="post__title"
+            ></div>
+          {% endif %}
+        {% endif %}
+        {% if form.text.errors %}
+          {% for error in form.text.errors %}
+            <span class="invalid-text">{{ error }}</span>
+          {% endfor %}
+          {% if form.text.value %}
+            <div
+              contenteditable="true"
+              data-placeholder="Your Blog Post Content goes here."
+              class="post__content post__content--lg mb-3 invalid"
+              id="post__content"
+            >
+              {{ form.text.value }}
+            </div>
+          {% else %}
+            <div
+              contenteditable="true"
+              data-placeholder="Your Blog Post Content goes here."
+              class="post__content post__content--lg mb-3 invalid"
+              id="post__content"
+            ></div>
+          {% endif %}
+        {% else %}
+          {% if form.text.value %}
+            <div
+              contenteditable="true"
+              data-placeholder="Your Blog Post Content goes here."
+              class="post__content post__content--lg mb-3"
+              id="post__content"
+            >
+              {{ form.text.value }}
+            </div>
+          {% else %}
+            <div
+              contenteditable="true"
+              data-placeholder="Your Blog Post Content goes here."
+              class="post__content post__content--lg mb-3"
+              id="post__content"
+            ></div>
+          {% endif %}
+        {% endif %}
+        {% if form.tags.errors %}
+          {% for error in form.tags.errors %}
+            <span class="invalid-text">{{ error }}</span>
+          {% endfor %}
+          {% if form.tags.value %}
+            <div
+              contenteditable="true"
+              data-placeholder="Your Blog Post Tags go here(comma(,) separated)."
+              class="post__tags post__tags--lg mb-3 invalid"
+              id="post__tags"
+            >
+              {{ form.tags.value }}
+            </div>
+          {% else %}
+            <div
+              contenteditable="true"
+              data-placeholder="Your Blog Post Tags go here(comma(,) separated)."
+              class="post__tags post__tags--lg mb-3 invalid"
+              id="post__tags"
+            ></div>
+          {% endif %}
+        {% else %}
+          {% if form.tags.value %}
+            <div
+              contenteditable="true"
+              data-placeholder="Your Blog Post Tags go here(comma(,) separated)."
+              class="post__tags post__tags--lg mb-3"
+              id="post__tags"
+            >
+              {{ form.tags.value }}
+            </div>
+          {% else %}
+            <div
+              contenteditable="true"
+              data-placeholder="Your Blog Post Tags go here(comma(,) separated)."
+              class="post__tags post__tags--lg mb-3"
+              id="post__tags"
+            ></div>
+          {% endif %}
+        {% endif %}
+        <div class="post__author__container text-center mb-3">
+          <div class="post__author__line"></div>
+          <div class="post__author post__author--lg px-4">
+            {{ author }}
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button type="button" id="post__form__btn" class="c-btn c-btn--round">
+            {% if edit %}
+              Update Post
+            {% else %}
+              Create Post
+            {% endif %}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

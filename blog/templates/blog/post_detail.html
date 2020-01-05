@@ -1,0 +1,57 @@
+{% extends './base.html' %} {% block content %}
+<div class="container pb-5">
+  <div class="row">
+    <div class="col-12">
+      {% if not post.published_date %}
+        <span>DRAFT</span>
+      {% else %}
+        <div class="post__date">
+          {{ post.published_date | date:"D, d M, Y" }}
+        </div>
+      {% endif %}
+      <div class="heading mb-5 display-3">
+        {{ post.title }}
+      </div>
+      <div class="post__content post__content--lg mb-3">
+        {% autoescape off %} {{ post.text }} {% endautoescape %}
+      </div>
+      <div class="post__tags">
+        {% for tag in post.tags.all %}
+          <a href="{% url 'tag_post_list' tag_name=tag.name %}">
+            <span class="post__tag">{{ tag.name }}</span>
+          </a>
+        {% endfor %}
+      </div>
+      <div class="post__author__container text-center mb-3">
+        <div class="post__author__line"></div>
+        <div class="post__author post__author--lg px-4">{{ post.author }}</div>
+      </div>
+      <div class="post__actions d-flex justify-content-center">
+        {% if not post.published_date %}
+          <div class="post__action text-center mr-3">
+            <a
+              href="{% url 'post_draft_publish' id=post.pk %}"
+              class="c-btn c-btn--round"
+              >Publish</a
+            >
+          </div>
+        {% endif %}
+        <div class="post__action text-center mr-3">
+          <a
+            href="{% url 'post_edit' id=post.pk %}"
+            class="c-btn c-btn--round"
+            >Edit</a
+          >
+        </div>
+        <div class="post__action text-center">
+          <a
+            href="{% url 'post_delete' id=post.pk %}"
+            class="c-btn c-btn--round"
+            >Delete</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
